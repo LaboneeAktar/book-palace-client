@@ -3,6 +3,7 @@ import {
   createUserWithEmailAndPassword,
   getAuth,
   onAuthStateChanged,
+  sendPasswordResetEmail,
   signInWithEmailAndPassword,
   signInWithPopup,
   signOut,
@@ -11,11 +12,10 @@ import {
 import app from "../firebase/firebase.config";
 
 export const AuthContext = createContext();
-
 const auth = getAuth(app);
 
 const AuthProvider = ({ children }) => {
-  const [user, setUser] = useState({});
+  const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
 
   //create user
@@ -25,24 +25,27 @@ const AuthProvider = ({ children }) => {
   };
 
   // user Login
-  const logIn = (email, password) => {
+  const signIn = (email, password) => {
     setLoading(true);
     return signInWithEmailAndPassword(auth, email, password);
   };
 
   //set profile name & photo
-  const updateUserProfile = (name, photoURL) => {
+  const updateUser = (userInfo) => {
     setLoading(true);
-    return updateProfile(auth.currentUser, {
-      displayName: name,
-      photoURL: photoURL,
-    });
+    return updateProfile(auth.currentUser, userInfo);
   };
 
   //provider (Google) login
-  const providerLogin = (provider) => {
+  const googleSignIn = (provider) => {
     setLoading(true);
     return signInWithPopup(auth, provider);
+  };
+
+  //reset Password
+  const resetPassword = (email) => {
+    setLoading(true);
+    return sendPasswordResetEmail(auth, email);
   };
 
   //logout
@@ -53,26 +56,26 @@ const AuthProvider = ({ children }) => {
   };
 
   useEffect(() => {
-    const unSubscribe = onAuthStateChanged(auth, (currentUser) => {
+    const unsubscriobe = onAuthStateChanged(auth, (currentUser) => {
       setUser(currentUser);
       setLoading(false);
     });
-    return () => unSubscribe();
+    return () => unsubscriobe();
   }, []);
 
   const authInfo = {
     user,
     loading,
     createUser,
-    logIn,
-    updateUserProfile,
-    providerLogin,
+    signIn,
+    updateUser,
+    googleSignIn,
+    resetPassword,
     logOut,
   };
+
   return (
-    <div>
-      <AuthContext.Provider value={authInfo}>{children}</AuthContext.Provider>
-    </div>
+    <AuthContext.Provider value={authInfo}>{children}</AuthContext.Provider>
   );
 };
 

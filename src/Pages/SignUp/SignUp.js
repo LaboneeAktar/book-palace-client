@@ -1,0 +1,186 @@
+import { GoogleAuthProvider } from "firebase/auth";
+import React, { useContext, useState } from "react";
+import { useForm } from "react-hook-form";
+import toast from "react-hot-toast";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import { AuthContext } from "../../contexts/AuthProvider";
+// import useToken from "../../hooks/useToken";
+
+const SignUp = () => {
+  const {
+    register,
+    formState: { errors },
+    handleSubmit,
+  } = useForm();
+
+  const { createUser, updateUser, googleSignIn } = useContext(AuthContext);
+  const [signUpError, setsignUpError] = useState("");
+
+  const googleProvider = new GoogleAuthProvider();
+
+  //   const [createdUserEmail, setCreatedUserEmail] = useState("");
+  //   const [token] = useToken(createdUserEmail);
+  //   const location = useLocation();
+  //   const navigate = useNavigate();
+
+  //   const from = location.state?.from?.pathname || "/";
+
+  //   if (token) {
+  //     navigate(from, { replace: true });
+  //   }
+
+  const handleSignUp = (data) => {
+    // console.log(data);
+    setsignUpError("");
+    createUser(data.email, data.password)
+      .then((result) => {
+        const user = result.user;
+        console.log(user);
+
+        const userInfo = {
+          displayName: data.name,
+        };
+        updateUser(userInfo)
+          .then(() => {
+            // saveUser(data.name, data.email);
+          })
+          .catch((error) => console.error(error));
+
+        toast.success("Successfully Created Account");
+      })
+      .catch((error) => {
+        console.error(error);
+        setsignUpError(error.message);
+      });
+  };
+
+  const handleGoogleSignIn = () => {
+    googleSignIn(googleProvider)
+      .then((result) => {
+        const user = result.user;
+        console.log(user);
+      })
+      .catch((error) => console.error(error));
+  };
+
+  //   const saveUser = (name, email) => {
+  //     const user = { name, email };
+  //     fetch(" https://doctors-portal-server-eight-ruddy.vercel.app/users", {
+  //       method: "POST",
+  //       headers: {
+  //         "content-type": "application/json",
+  //       },
+  //       body: JSON.stringify(user),
+  //     })
+  //       .then((res) => res.json())
+  //       .then((data) => {
+  //         console.log("Saved User", data);
+  //         setCreatedUserEmail(email);
+  //       });
+  //   };
+
+  return (
+    <div>
+      <div className="lg:relative">
+        <img
+          src="https://miro.medium.com/max/1400/1*rsr_PUpl-d9Fg89NaAZZZQ@2x.jpeg"
+          className="absolute inset-0 object-cover w-full h-full lg:block hidden"
+          alt=""
+        />
+        <div className="lg:relative bg-gray-300 lg:bg-gray-900 lg:bg-opacity-80">
+          <div className="px-4 py-16 mx-auto sm:max-w-xl md:max-w-full lg:max-w-screen-2xl md:px-24 lg:px-8 lg:py-20">
+            <div className="w-full max-w-xl xl:px-8 xl:w-5/12 mx-auto">
+              <div className="bg-gray-400 rounded shadow-2xl p-7 sm:p-10">
+                <h1 className="mb-4 text-xl text-center sm:mb-6 sm:text-2xl">
+                  Login for Updates
+                </h1>
+                <form
+                  onSubmit={handleSubmit(handleSignUp)}
+                  className="space-y-6 ng-untouched ng-pristine ng-valid"
+                >
+                  <div className="space-y-1">
+                    <label className="block text-black text-lg"> Name</label>
+                    <input
+                      type="text"
+                      placeholder="Your Name"
+                      {...register("name", {
+                        required: "Name is Required",
+                      })}
+                      className="w-full px-4 py-4 rounded-md border border-green-700 bg-slate-100 text-black  focus:border-violet-400 font-normal text-[16px]"
+                    />
+                    {errors.name && (
+                      <p className="text-rose-700">{errors.name.message}</p>
+                    )}
+                  </div>
+                  <div className="space-y-1">
+                    <label className="block text-black text-lg"> Email</label>
+                    <input
+                      type="email"
+                      placeholder="Enter Email"
+                      {...register("email", {
+                        required: true,
+                      })}
+                      className="w-full px-4 py-4 rounded-md border border-green-700 bg-slate-100 text-black  focus:border-violet-400 font-normal text-[16px]"
+                    />
+                    {errors.email && (
+                      <p className="text-rose-700">{errors.email.message}</p>
+                    )}
+                  </div>
+                  <div className="space-y-1">
+                    <label className="block text-black text-lg">
+                      {" "}
+                      Password
+                    </label>
+                    <input
+                      type="password"
+                      placeholder="Enter Password"
+                      {...register("password", {
+                        required: "Password is required",
+                        minLength: {
+                          value: 6,
+                          message: "Password must be 6 characters long",
+                        },
+                        pattern: {
+                          value: /(?=.*[A-Z])(?=.*[!@#$&*])(?=.*[0-9])/,
+                          message:
+                            "Password must have uppercase, number and special characters",
+                        },
+                      })}
+                      className="w-full px-4 py-4 rounded-md border border-green-700 bg-slate-100 text-black  focus:border-violet-400 font-normal text-[16px]"
+                    />
+                    {errors.password && (
+                      <p className="text-rose-600">{errors.password.message}</p>
+                    )}
+                  </div>
+                  <input
+                    className="block w-full px-6 py-2 text-lg font-normal border rounded-md bg-gradient-to-r from-emerald-700 to-green-500 text-white hover:bg-gradient-to-r hover:from-emerald-700 hover:via-blue-700 hover:to-emerald-700 dark:border-gray-100  dark:text-gray-100 "
+                    value="Sign Up"
+                    type="submit"
+                  />
+                  {signUpError && (
+                    <p className="text-rose-600">{signUpError}</p>
+                  )}
+                </form>
+                <div className="text-center py-3">OR</div>
+                <button
+                  onClick={handleGoogleSignIn}
+                  className="block w-full px-6 py-2 text-lg font-normal border rounded-md bg-gradient-to-r from-blue-700 to-sky-600 text-white hover:bg-gradient-to-r hover:from-emerald-700 hover:via-blue-700 hover:to-emerald-700 dark:border-gray-100  dark:text-gray-100 "
+                >
+                  Continue with Google
+                </button>
+                <p className="py-3 text-center">
+                  Already Have an Acoount?{" "}
+                  <Link className="text-blue-700" to="/login">
+                    Login
+                  </Link>
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default SignUp;
