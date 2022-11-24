@@ -9,7 +9,7 @@ const Banner = () => {
           className="absolute inset-0 object-cover w-full h-full lg:block hidden"
           alt=""
         />
-        <div className="lg:relative block bg-gray-900 bg-opacity-75">
+        <div className="lg:relative block bg-gray-300 lg:bg-gray-900 lg:bg-opacity-75">
           <div className="px-4 py-2 mx-auto sm:max-w-xl md:max-w-full lg:max-w-screen-xl md:px-24 lg:px-8 lg:py-20">
             <div className="w-full py-8 max-w-xl mb-12 xl:mb-0 xl:pr-16 xl:w-7/12">
               <h1 className="max-w-lg mb-6 lg:text-4xl tracking-tight text-white sm:text-2xl lg:text-start text-center sm:leading-none">
