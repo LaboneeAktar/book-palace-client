@@ -105,8 +105,8 @@ const Navbar = () => {
           <div className="relative flex lg:grid items-center grid-cols-2 lg:grid-cols-3">
             <Link to="/" className="inline-flex items-center lg:mx-auto">
               <img className="rounded-full w-28" src={logo} alt="" />
-              <h1 className="ml-2 mr-10 lg:text-3xl text-2xl tracking-wide bg-gradient-to-r from-gray-100 via-rose-400 to-lime-400 inline-block text-transparent bg-clip-text">
-                Resale Book Palace
+              <h1 className="ml-2 mr-10 lg:text-4xl text-2xl tracking-wide bg-gradient-to-r from-gray-100 via-rose-400 to-lime-400 inline-block text-transparent bg-clip-text">
+                Book Palace
               </h1>
             </Link>
             <ul className=" items-center hidden space-x-8 lg:flex lg:ml-40">
@@ -153,7 +153,7 @@ const Navbar = () => {
                             alt=""
                           />
                           <h1 className="ml-2 text-2xl tracking-wide text-white">
-                            Resale Book Palace
+                            Book Palace
                           </h1>
                         </Link>
                       </div>
