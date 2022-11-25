@@ -15,7 +15,7 @@ const Login = () => {
     handleSubmit,
   } = useForm();
 
-  const { signIn, googleSignIn, resetPassword, loading } =
+  const { signIn, googleSignIn, resetPassword, loading, setLoading } =
     useContext(AuthContext);
   const [loginError, setLoginError] = useState("");
   //   const [loginUserEmail, setLoginUserEmail] = useState("");
@@ -35,6 +35,7 @@ const Login = () => {
         const user = result.user;
         console.log(user);
         // setLoginUserEmail(data.email);
+        setLoading(false);
         toast.success("Login Successful");
         navigate(from, { replace: true });
       })
@@ -122,11 +123,12 @@ const Login = () => {
                         <p className="text-rose-700">{loginError}</p>
                       )}
                     </div>
-                    <input
+                    <button
                       className="block w-full px-6 py-2 text-lg font-normal border rounded-md bg-gradient-to-r from-emerald-700 to-green-500 text-white hover:bg-gradient-to-r hover:from-emerald-700 hover:via-blue-700 hover:to-emerald-700 dark:border-gray-100  dark:text-gray-100 "
-                      value={loading ? <SmallLoader></SmallLoader> : "Login"}
                       type="submit"
-                    />
+                    >
+                      {loading ? <SmallLoader></SmallLoader> : "Login"}{" "}
+                    </button>
                   </form>
                   <div className="text-center py-3">OR</div>
                   <button

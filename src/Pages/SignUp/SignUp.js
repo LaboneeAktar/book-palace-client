@@ -14,7 +14,7 @@ const SignUp = () => {
     handleSubmit,
   } = useForm();
 
-  const { createUser, updateUser, googleSignIn, loading } =
+  const { createUser, updateUser, googleSignIn, loading, setLoading } =
     useContext(AuthContext);
   const [signUpError, setsignUpError] = useState("");
 
@@ -32,7 +32,7 @@ const SignUp = () => {
   //   }
 
   const handleSignUp = (data) => {
-    console.log(data.role);
+    // console.log(data.role);
     setsignUpError("");
     createUser(data.email, data.password)
       .then((result) => {
@@ -45,11 +45,9 @@ const SignUp = () => {
         };
         updateUser(userInfo)
           .then(() => {
-            // saveUser(data.name, data.email, data.role);
+            saveUser(data.name, data.email, data.role);
           })
           .catch((error) => console.error(error));
-
-        toast.success("Successfully Created Account");
       })
       .catch((error) => {
         console.error(error);
@@ -66,21 +64,25 @@ const SignUp = () => {
       .catch((error) => console.error(error));
   };
 
-  //   const saveUser = (name, email, role) => {
-  //     const user = { name, email, role };
-  //     fetch(" https://doctors-portal-server-eight-ruddy.vercel.app/users", {
-  //       method: "POST",
-  //       headers: {
-  //         "content-type": "application/json",
-  //       },
-  //       body: JSON.stringify(user),
-  //     })
-  //       .then((res) => res.json())
-  //       .then((data) => {
-  //         console.log("Saved User", data);
-  //         setCreatedUserEmail(email);
-  //       });
-  //   };
+  const saveUser = (name, email, role) => {
+    const user = { name, email, role };
+    fetch(`${process.env.REACT_APP_API_URL}/users`, {
+      method: "POST",
+      headers: {
+        "content-type": "application/json",
+      },
+      body: JSON.stringify(user),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log("Saved User", data);
+        if (data.acknowledged) {
+          setLoading(false);
+          toast.success("Successfully Created Account");
+        }
+        // setCreatedUserEmail(email);
+      });
+  };
 
   return (
     <div>
@@ -191,11 +193,13 @@ const SignUp = () => {
                     </select>
                   </div>
 
-                  <input
+                  <button
                     className="block w-full px-6 py-2 text-lg font-normal border rounded-md bg-gradient-to-r from-emerald-700 to-green-500 text-white hover:bg-gradient-to-r hover:from-emerald-700 hover:via-blue-700 hover:to-emerald-700 dark:border-gray-100  dark:text-gray-100 "
-                    value={loading ? <SmallLoader></SmallLoader> : "Sign Up"}
                     type="submit"
-                  />
+                  >
+                    {loading ? <SmallLoader></SmallLoader> : "Sign Up"}
+                  </button>
+
                   {signUpError && (
                     <p className="text-rose-600">{signUpError}</p>
                   )}
