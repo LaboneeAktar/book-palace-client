@@ -13,7 +13,7 @@ const Categories = () => {
   });
 
   return (
-    <div className="lg:py-10 p-5 bg-gray-200">
+    <div className="lg:pt-10 p-5 bg-gray-200">
       <h1 className="text-center text-3xl bg-gradient-to-r from-rose-600 via-blue-700 to-green-600 inline-block text-transparent bg-clip-text">
         Book Category
       </h1>
