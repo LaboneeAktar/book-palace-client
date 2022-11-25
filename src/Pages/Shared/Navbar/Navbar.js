@@ -1,21 +1,14 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { Link, NavLink } from "react-router-dom";
 import logo from "../../../assets/images/logo.png";
+import { AuthContext } from "../../../contexts/AuthProvider";
 
 const Navbar = () => {
+  const { user, logOut } = useContext(AuthContext);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const leftSideMenuItems = (
     <>
-      {/* {user?.uid && (
-        <div className="w-10 rounded-full ml-3" title={user?.displayName}>
-          {user?.photoURL ? (
-            <img className="rounded-full h-10" alt="..." src={user?.photoURL} />
-          ) : (
-            <FaUser className="text-white" />
-          )}
-        </div>
-      )} */}
       <li>
         <NavLink
           to="/home"
@@ -38,7 +31,7 @@ const Navbar = () => {
           className={({ isActive }) =>
             isActive
               ? "text-rose-800 text-xl"
-              : "text-xl tracking-wide lg:text-gray-100  transition-colors duration-200 hover:text-rose-800"
+              : "text-xl tracking-wide lg:text-gray-100 transition-colors duration-200 hover:text-rose-800"
           }
         >
           Blog
@@ -49,63 +42,56 @@ const Navbar = () => {
 
   const rightSideMenuItems = (
     <div>
-      {/*  {user?.uid || user?.email ? (
+      {user?.uid || user?.email ? (
         <div className="lg:flex lg:items-center lg:justify-beteween lg:space-y-0 space-y-4">
           <li>
-            <Link
-              to="/myreview"
-              aria-label="My Review"
-              title="My Review"
-              className="text-lg tracking-wide lg:text-gray-100  transition-colors duration-200 hover:text-teal-400 mr-5"
+            <NavLink
+              to="/dashboard"
+              aria-label="Dashboard"
+              title="Dashboard"
+              className={({ isActive }) =>
+                isActive
+                  ? "text-rose-800 text-xl"
+                  : "text-xl tracking-wide lg:text-gray-100 mr-5 transition-colors duration-200 hover:text-rose-800"
+              }
             >
-              My Review
-            </Link>
-          </li>
-          <li>
-            <Link
-              to="/addservice"
-              aria-label="Add Service"
-              title="Add Service"
-              className="text-lg tracking-wide lg:text-gray-100  transition-colors duration-200 hover:text-teal-400 mr-5"
-            >
-              Add Service
-            </Link>
+              Dashboard
+            </NavLink>
           </li>
 
           <li>
             <button
               onClick={logOut}
               type="button"
-              className="px-4 py-2 text-lg font-normal border rounded text-white hover:bg-teal-500 hover:border-teal-500 hover:text-black dark:border-gray-100  dark:text-gray-100"
+              className="px-4 py-2 text-lg font-normal border rounded text-white hover:bg-sky-900 hover:border-emerald-500 dark:border-gray-100  dark:text-gray-100"
             >
               Logout
             </button>
           </li>
         </div>
-      ) : */}
-
-      <li>
-        <Link to="/login">
-          <button
-            type="button"
-            className="px-6 py-2 text-lg font-normal border rounded text-white hover:bg-green-900 hover:border-emerald-500  dark:border-gray-100  dark:text-gray-100"
-          >
-            Login
-          </button>
-        </Link>
-      </li>
-      {/* } */}
+      ) : (
+        <li>
+          <Link to="/login">
+            <button
+              type="button"
+              className="px-6 py-2 text-lg font-normal border rounded text-white hover:bg-sky-900 hover:border-emerald-500  dark:border-gray-100  dark:text-gray-100"
+            >
+              Login
+            </button>
+          </Link>
+        </li>
+      )}
     </div>
   );
 
   return (
     <div>
-      <div className="bg-gradient-to-r from-emerald-700 to-green-500 text-white">
+      <div className="bg-gradient-to-r from-purple-600 to-sky-500 text-white">
         <div className="px-4 py-2 mx-auto sm:max-w-xl md:max-w-full lg:max-w-screen-xl md:px-10 lg:px-4">
           <div className="relative flex lg:grid items-center grid-cols-2 lg:grid-cols-3">
             <Link to="/" className="inline-flex items-center lg:mx-auto">
               <img className="rounded-full w-28" src={logo} alt="" />
-              <h1 className="ml-2 mr-10 lg:text-4xl text-2xl tracking-wide bg-gradient-to-r from-gray-100 via-rose-400 to-lime-400 inline-block text-transparent bg-clip-text">
+              <h1 className="ml-2 mr-10 lg:text-4xl text-2xl tracking-wide bg-gradient-to-r from-gray-100 via-rose-300 to-sky-200 inline-block text-transparent bg-clip-text">
                 Book Palace
               </h1>
             </Link>

@@ -124,7 +124,7 @@ const Login = () => {
                       )}
                     </div>
                     <button
-                      className="block w-full px-6 py-2 text-lg font-normal border rounded-md bg-gradient-to-r from-emerald-700 to-green-500 text-white hover:bg-gradient-to-r hover:from-emerald-700 hover:via-blue-700 hover:to-emerald-700 dark:border-gray-100  dark:text-gray-100 "
+                      className="block w-full px-6 py-2 text-lg font-normal border rounded-md bg-gradient-to-r from-purple-700 to-rose-500 text-white hover:bg-gradient-to-r hover:from-emerald-700 hover:via-blue-700 hover:to-emerald-700 dark:border-gray-100  dark:text-gray-100 "
                       type="submit"
                     >
                       {loading ? <SmallLoader></SmallLoader> : "Login"}{" "}
