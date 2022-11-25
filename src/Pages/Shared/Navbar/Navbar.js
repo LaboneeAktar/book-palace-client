@@ -51,7 +51,7 @@ const Navbar = () => {
               title="Dashboard"
               className={({ isActive }) =>
                 isActive
-                  ? "text-rose-800 text-xl"
+                  ? "text-rose-800 text-xl mr-5"
                   : "text-xl tracking-wide lg:text-gray-100 mr-5 transition-colors duration-200 hover:text-rose-800"
               }
             >
