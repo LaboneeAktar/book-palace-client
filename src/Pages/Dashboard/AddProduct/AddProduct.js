@@ -114,6 +114,7 @@ const AddProduct = () => {
                 type="text"
                 placeholder="Book Name"
                 className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-200 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40 dark:focus:border-blue-300 focus:outline-none focus:ring"
+                required
               />
             </div>
 
@@ -128,6 +129,7 @@ const AddProduct = () => {
                 id="image"
                 type="file"
                 className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-200 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40 dark:focus:border-blue-300 focus:outline-none focus:ring"
+                required
               />
             </div>
 
@@ -136,6 +138,7 @@ const AddProduct = () => {
               <select
                 name="category"
                 className="w-full px-4 py-2 mt-2 rounded-md border bg-white border-gray-200 text-black  focus:border-violet-400 font-normal text-[16px]"
+                required
               >
                 {categories.map((category) => (
                   <option key={category._id} value={category.title}>
@@ -158,6 +161,7 @@ const AddProduct = () => {
                 placeholder="Location"
                 type="text"
                 className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-200 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40 dark:focus:border-blue-300 focus:outline-none focus:ring"
+                required
               />
             </div>
 
@@ -174,6 +178,7 @@ const AddProduct = () => {
                 placeholder="Original Price"
                 type="text"
                 className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-200 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40 dark:focus:border-blue-300 focus:outline-none focus:ring"
+                required
               />
             </div>
 
@@ -190,6 +195,7 @@ const AddProduct = () => {
                 placeholder="Resale Price"
                 type="text"
                 className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-200 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40 dark:focus:border-blue-300 focus:outline-none focus:ring"
+                required
               />
             </div>
 
@@ -206,6 +212,7 @@ const AddProduct = () => {
                 placeholder="Purchase Year"
                 type="text"
                 className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-200 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40 dark:focus:border-blue-300 focus:outline-none focus:ring"
+                required
               />
             </div>
             <div>
@@ -221,6 +228,7 @@ const AddProduct = () => {
                 placeholder="Use of Time"
                 type="text"
                 className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-200 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40 dark:focus:border-blue-300 focus:outline-none focus:ring"
+                required
               />
             </div>
 
@@ -229,6 +237,7 @@ const AddProduct = () => {
               <select
                 name="condition"
                 className="w-full px-4 py-2 mt-2 rounded-md border bg-white border-gray-200 text-black  focus:border-violet-400 font-normal text-[16px]"
+                required
               >
                 <option value="excellent">Excellent </option>
                 <option value="good">Good</option>
@@ -264,6 +273,7 @@ const AddProduct = () => {
                 placeholder="Message"
                 type="text"
                 className="block w-full h-20 px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-200 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40 dark:focus:border-blue-300 focus:outline-none focus:ring"
+                required
               />
             </div>
           </div>

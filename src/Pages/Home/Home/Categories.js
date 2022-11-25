@@ -19,11 +19,9 @@ const Categories = () => {
       </h1>
 
       <div className="grid grid-cols-1 lg:grid-cols-3 md:grid-cols-2 gap-10 m-8">
-        {categories
-          .map((category) => (
-            <Category key={category._id} category={category}></Category>
-          ))
-          .slice(0, 3)}
+        {categories.map((category) => (
+          <Category key={category._id} category={category}></Category>
+        ))}
       </div>
     </div>
   );

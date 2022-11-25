@@ -1,6 +1,7 @@
 import { createBrowserRouter } from "react-router-dom";
 import DashboardLayout from "../../layout/DashboardLayout";
 import Main from "../../layout/Main";
+import BooksByCategory from "../../Pages/BooksByCategory/BooksByCategory";
 import AddProduct from "../../Pages/Dashboard/AddProduct/AddProduct";
 import Home from "../../Pages/Home/Home/Home";
 import Login from "../../Pages/Login/Login";
@@ -18,6 +19,14 @@ const routes = createBrowserRouter([
       {
         path: "/home",
         element: <Home></Home>,
+      },
+      {
+        path: "/categories/:category",
+        element: <BooksByCategory></BooksByCategory>,
+        loader: ({ params }) =>
+          fetch(
+            `${process.env.REACT_APP_API_URL}/categories/${params.category}`
+          ),
       },
       {
         path: "/signup",
