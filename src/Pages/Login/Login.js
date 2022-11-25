@@ -3,6 +3,7 @@ import React, { useContext, useState } from "react";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 import { Link, useLocation, useNavigate } from "react-router-dom";
+import SmallLoader from "../../Components/Loader/SmallLoader";
 import { AuthContext } from "../../contexts/AuthProvider";
 // import useToken from "../../hooks/useToken";
 
@@ -14,7 +15,8 @@ const Login = () => {
     handleSubmit,
   } = useForm();
 
-  const { signIn, googleSignIn, resetPassword } = useContext(AuthContext);
+  const { signIn, googleSignIn, resetPassword, loading } =
+    useContext(AuthContext);
   const [loginError, setLoginError] = useState("");
   //   const [loginUserEmail, setLoginUserEmail] = useState("");
   //   const [token] = useToken(loginUserEmail);
@@ -63,11 +65,11 @@ const Login = () => {
       <section>
         <div className="lg:relative">
           <img
-            src="https://miro.medium.com/max/1400/1*rsr_PUpl-d9Fg89NaAZZZQ@2x.jpeg"
+            src="https://st2.depositphotos.com/3944627/8072/i/450/depositphotos_80729078-stock-photo-a-pile-of-books-on.jpg"
             className="absolute inset-0 object-cover w-full h-full lg:block hidden"
             alt=""
           />
-          <div className="lg:relative bg-gray-300 lg:bg-gray-900 lg:bg-opacity-80">
+          <div className="lg:relative bg-gray-300 lg:bg-gray-900 lg:bg-opacity-75">
             <div className="px-4 py-16 mx-auto sm:max-w-xl md:max-w-full lg:max-w-screen-2xl md:px-24 lg:px-8 lg:py-20">
               <div className="w-full max-w-xl xl:px-8 xl:w-5/12 mx-auto">
                 <div className="bg-gray-400 rounded shadow-2xl p-7 sm:p-10">
@@ -122,7 +124,7 @@ const Login = () => {
                     </div>
                     <input
                       className="block w-full px-6 py-2 text-lg font-normal border rounded-md bg-gradient-to-r from-emerald-700 to-green-500 text-white hover:bg-gradient-to-r hover:from-emerald-700 hover:via-blue-700 hover:to-emerald-700 dark:border-gray-100  dark:text-gray-100 "
-                      value="Login"
+                      value={loading ? <SmallLoader></SmallLoader> : "Login"}
                       type="submit"
                     />
                   </form>

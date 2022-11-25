@@ -3,6 +3,7 @@ import React, { useContext, useState } from "react";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 import { Link, useLocation, useNavigate } from "react-router-dom";
+import SmallLoader from "../../Components/Loader/SmallLoader";
 import { AuthContext } from "../../contexts/AuthProvider";
 // import useToken from "../../hooks/useToken";
 
@@ -13,7 +14,8 @@ const SignUp = () => {
     handleSubmit,
   } = useForm();
 
-  const { createUser, updateUser, googleSignIn } = useContext(AuthContext);
+  const { createUser, updateUser, googleSignIn, loading } =
+    useContext(AuthContext);
   const [signUpError, setsignUpError] = useState("");
 
   const googleProvider = new GoogleAuthProvider();
@@ -30,7 +32,7 @@ const SignUp = () => {
   //   }
 
   const handleSignUp = (data) => {
-    // console.log(data);
+    console.log(data.role);
     setsignUpError("");
     createUser(data.email, data.password)
       .then((result) => {
@@ -39,10 +41,11 @@ const SignUp = () => {
 
         const userInfo = {
           displayName: data.name,
+          photoURL: data.photoURL,
         };
         updateUser(userInfo)
           .then(() => {
-            // saveUser(data.name, data.email);
+            // saveUser(data.name, data.email, data.role);
           })
           .catch((error) => console.error(error));
 
@@ -63,8 +66,8 @@ const SignUp = () => {
       .catch((error) => console.error(error));
   };
 
-  //   const saveUser = (name, email) => {
-  //     const user = { name, email };
+  //   const saveUser = (name, email, role) => {
+  //     const user = { name, email, role };
   //     fetch(" https://doctors-portal-server-eight-ruddy.vercel.app/users", {
   //       method: "POST",
   //       headers: {
@@ -83,26 +86,28 @@ const SignUp = () => {
     <div>
       <div className="lg:relative">
         <img
-          src="https://miro.medium.com/max/1400/1*rsr_PUpl-d9Fg89NaAZZZQ@2x.jpeg"
+          src="https://st2.depositphotos.com/3944627/8072/i/450/depositphotos_80729078-stock-photo-a-pile-of-books-on.jpg"
           className="absolute inset-0 object-cover w-full h-full lg:block hidden"
           alt=""
         />
-        <div className="lg:relative bg-gray-300 lg:bg-gray-900 lg:bg-opacity-80">
+        <div className="lg:relative bg-gray-300 lg:bg-gray-900 lg:bg-opacity-75">
           <div className="px-4 py-16 mx-auto sm:max-w-xl md:max-w-full lg:max-w-screen-2xl md:px-24 lg:px-8 lg:py-20">
-            <div className="w-full max-w-xl xl:px-8 xl:w-5/12 mx-auto">
+            <div className="w-full max-w-2xl xl:px-8 xl:w-9/12 mx-auto">
               <div className="bg-gray-400 rounded shadow-2xl p-7 sm:p-10">
                 <h1 className="mb-4 text-xl text-center sm:mb-6 sm:text-2xl">
-                  Login for Updates
+                  SignUp for Updates
                 </h1>
                 <form
                   onSubmit={handleSubmit(handleSignUp)}
                   className="space-y-6 ng-untouched ng-pristine ng-valid"
                 >
                   <div className="space-y-1">
-                    <label className="block text-black text-lg"> Name</label>
+                    <label className="block text-black text-lg">
+                      Your Name
+                    </label>
                     <input
                       type="text"
-                      placeholder="Your Name"
+                      placeholder="Enter Your Name"
                       {...register("name", {
                         required: "Name is Required",
                       })}
@@ -112,6 +117,26 @@ const SignUp = () => {
                       <p className="text-rose-700">{errors.name.message}</p>
                     )}
                   </div>
+
+                  <div className="space-y-1">
+                    <label
+                      htmlFor="photURL"
+                      className="block text-black text-lg"
+                    >
+                      Photo URL
+                    </label>
+                    <input
+                      type="text"
+                      {...register("photoURL", {
+                        required: "PhotoURL is Required",
+                      })}
+                      id="photURL"
+                      placeholder="Enter PhotoURL"
+                      className="w-full px-4 py-4 rounded-md border-white bg-slate-100 text-black font-normal text-[16px] focus:border-violet-400"
+                      required
+                    />
+                  </div>
+
                   <div className="space-y-1">
                     <label className="block text-black text-lg"> Email</label>
                     <input
@@ -152,9 +177,23 @@ const SignUp = () => {
                       <p className="text-rose-600">{errors.password.message}</p>
                     )}
                   </div>
+
+                  <div className="space-y-1">
+                    <label className="block text-black text-lg">
+                      Select One
+                    </label>
+                    <select
+                      {...register("role")}
+                      className="w-full px-4 py-4 mt-0 rounded-md border border-green-700 bg-slate-100 text-black  focus:border-violet-400 font-normal text-[16px]"
+                    >
+                      <option value="buyer">Buyer</option>
+                      <option value="seller">Seller</option>
+                    </select>
+                  </div>
+
                   <input
                     className="block w-full px-6 py-2 text-lg font-normal border rounded-md bg-gradient-to-r from-emerald-700 to-green-500 text-white hover:bg-gradient-to-r hover:from-emerald-700 hover:via-blue-700 hover:to-emerald-700 dark:border-gray-100  dark:text-gray-100 "
-                    value="Sign Up"
+                    value={loading ? <SmallLoader></SmallLoader> : "Sign Up"}
                     type="submit"
                   />
                   {signUpError && (
