@@ -239,9 +239,9 @@ const AddProduct = () => {
                 className="w-full px-4 py-2 mt-2 rounded-md border bg-white border-gray-200 text-black  focus:border-violet-400 font-normal text-[16px]"
                 required
               >
-                <option value="excellent">Excellent </option>
-                <option value="good">Good</option>
-                <option value="fair">Fair</option>
+                <option value="Excellent">Excellent </option>
+                <option value="Good">Good</option>
+                <option value="Fair">Fair</option>
               </select>
             </div>
 
