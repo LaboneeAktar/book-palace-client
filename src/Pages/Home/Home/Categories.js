@@ -1,9 +1,10 @@
 import { useQuery } from "@tanstack/react-query";
 import React from "react";
+import Loader from "../../../Components/Loader/Loader";
 import Category from "./Category";
 
 const Categories = () => {
-  const { data: categories = [] } = useQuery({
+  const { data: categories = [], isLoading } = useQuery({
     queryKey: ["categories"],
     queryFn: async () => {
       const res = await fetch(`${process.env.REACT_APP_API_URL}/categories`);
@@ -11,6 +12,10 @@ const Categories = () => {
       return data;
     },
   });
+
+  if (isLoading) {
+    return <Loader />;
+  }
 
   return (
     <div className="lg:pt-10 p-5 bg-gray-200">

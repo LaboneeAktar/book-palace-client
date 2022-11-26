@@ -8,6 +8,7 @@ import MyProducts from "../../Pages/Dashboard/MyProducts/MyProducts";
 import Home from "../../Pages/Home/Home/Home";
 import Login from "../../Pages/Login/Login";
 import SignUp from "../../Pages/SignUp/SignUp";
+import PrivateRoute from "../PrivateRoute/PrivateRoute";
 
 const routes = createBrowserRouter([
   {
@@ -24,7 +25,11 @@ const routes = createBrowserRouter([
       },
       {
         path: "/categories/:category",
-        element: <BooksByCategory></BooksByCategory>,
+        element: (
+          <PrivateRoute>
+            <BooksByCategory></BooksByCategory>
+          </PrivateRoute>
+        ),
         loader: ({ params }) =>
           fetch(
             `${process.env.REACT_APP_API_URL}/categories/${params.category}`
