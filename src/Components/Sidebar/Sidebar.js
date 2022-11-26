@@ -8,17 +8,17 @@ import SellerMenu from "./SellerMenu";
 const Sidebar = () => {
   const { user } = useContext(AuthContext);
 
-  const [checkUser, setCheckUser] = useState({});
+  const [checkUser, setCheckUser] = useState();
 
   useEffect(() => {
-    fetch(`${process.env.REACT_APP_API_URL}/users/${user?.email}`)
+    fetch(`${process.env.REACT_APP_API_URL}/users/${user?.email}`, {
+      headers: {
+        authorization: `Bearer ${localStorage.getItem("bookPalace-token")}`,
+      },
+    })
       .then((res) => res.json())
-      .then((data) => {
-        // console.log(data);
-        setCheckUser(data);
-      })
-      .catch((error) => console.error(error));
-  }, [user?.email]);
+      .then((data) => setCheckUser(data));
+  }, [user]);
 
   return (
     <div className="h-full min-h-screen p-3 space-y-2 w-60 bg-gray-300 dark:bg-gray-900 dark:text-gray-100">

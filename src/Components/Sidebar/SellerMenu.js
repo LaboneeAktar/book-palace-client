@@ -1,7 +1,7 @@
 import React from "react";
-import { FaUser } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import addProduct from "../../assets/images/addproduct.png";
+import myProduct from "../../assets/images/myproduct.png";
 
 const SellerMenu = () => {
   return (
@@ -18,11 +18,11 @@ const SellerMenu = () => {
       </li>
       <li className="dark:bg-gray-800 dark:text-gray-50">
         <Link
+          to="/dashboard/myproduct"
           rel="noopener noreferrer"
-          href="#"
           className="flex items-center p-2 space-x-3 rounded-md text-[16px]"
         >
-          <FaUser></FaUser>
+          <img src={myProduct} className="h-7 w-7" alt="" />
           <span>My Product</span>
         </Link>
       </li>
