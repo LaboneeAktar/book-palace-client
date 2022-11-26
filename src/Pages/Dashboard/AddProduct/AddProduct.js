@@ -86,7 +86,7 @@ const AddProduct = () => {
               if (result.acknowledged) {
                 toast.success(`Successfully Added Your Book`);
                 form.reset();
-                // navigate("/dashboard/managedoctors");
+                // navigate("/dashboard/myproduct");
               }
             })
             .catch((error) => console.log(error));

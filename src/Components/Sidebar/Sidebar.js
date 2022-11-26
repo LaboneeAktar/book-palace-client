@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { AuthContext } from "../../contexts/AuthProvider";
 import AdminMenu from "./AdminMenu";
@@ -7,6 +7,19 @@ import SellerMenu from "./SellerMenu";
 
 const Sidebar = () => {
   const { user } = useContext(AuthContext);
+
+  const [checkUser, setCheckUser] = useState({});
+
+  useEffect(() => {
+    fetch(`${process.env.REACT_APP_API_URL}/users/${user?.email}`)
+      .then((res) => res.json())
+      .then((data) => {
+        // console.log(data);
+        setCheckUser(data);
+      })
+      .catch((error) => console.error(error));
+  }, [user?.email]);
+
   return (
     <div className="h-full min-h-screen p-3 space-y-2 w-60 bg-gray-300 dark:bg-gray-900 dark:text-gray-100">
       <div className="flex items-center p-2 space-x-4">
@@ -29,14 +42,12 @@ const Sidebar = () => {
         </div>
       </div>
       <div className="divide-y divide-gray-700">
-        {/* Admin Dashboard */}
         <ul className="pt-2 pb-4 space-y-1 text-sm">
-          <AdminMenu></AdminMenu>
+          {checkUser?.role === "admin" && <AdminMenu></AdminMenu>}
 
-          {/* Seller Dahboard */}
-          <SellerMenu></SellerMenu>
-          {/* Buyer Dashboard */}
-          <BuyerMenu />
+          {checkUser?.role === "seller" && <SellerMenu></SellerMenu>}
+
+          {checkUser?.role === "buyer" && <BuyerMenu />}
         </ul>
       </div>
     </div>

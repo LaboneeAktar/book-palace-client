@@ -1,12 +1,55 @@
 import React, { useContext } from "react";
+import toast from "react-hot-toast";
 import { AuthContext } from "../../contexts/AuthProvider";
 
 const BookingModal = ({ book }) => {
   const { user } = useContext(AuthContext);
-  const { name, category, originalPrice, resalePrice } = book;
+  const { name, category, originalPrice, resalePrice, image } = book;
 
   const handleBooking = (event) => {
     event.preventDefault();
+
+    const form = event.target;
+
+    const bookName = form.bookname.value;
+    const category = form.category.value;
+    const originalPrice = form.originalPrice.value;
+    const resalePrice = form.resalePrice.value;
+    const location = form.location.value;
+    const phoneNumber = form.phoneNumber.value;
+
+    const booking = {
+      bookName,
+      category,
+      bookImage: image,
+      originalPrice,
+      resalePrice,
+      buyer: {
+        buyerName: user?.displayName,
+        email: user?.email,
+        location,
+        phoneNumber,
+      },
+    };
+    // console.log(bookings);
+
+    fetch(`${process.env.REACT_APP_API_URL}/bookings`, {
+      method: "POST",
+      headers: {
+        "content-type": "application/json",
+      },
+      body: JSON.stringify(booking),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        // console.log(result);
+        if (data.acknowledged) {
+          toast.success(`Booking Successfull`);
+          form.reset();
+          // navigate("/dashboard/myorders");
+        }
+      })
+      .catch((error) => console.log(error));
   };
 
   return (
@@ -16,7 +59,7 @@ const BookingModal = ({ book }) => {
         <div className="modal-box relative">
           <label
             htmlFor="booking-modal"
-            className="btn btn-sm btn-circle absolute right-2 top-2"
+            className="btn btn-sm btn-circle border-0 bg-rose-600 absolute right-2 top-2"
           >
             ✕
           </label>
@@ -39,7 +82,7 @@ const BookingModal = ({ book }) => {
                   placeholder="Name"
                   defaultValue={user?.displayName}
                   disabled
-                  className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-200 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40 dark:focus:border-blue-300 focus:outline-none focus:ring"
+                  className="block w-full px-4 py-2 mt-2 text-gray-900 bg-gray-200 border border-gray-400 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40 dark:focus:border-blue-300 focus:outline-none focus:ring"
                   required
                 />
               </div>
@@ -58,7 +101,7 @@ const BookingModal = ({ book }) => {
                   placeholder="Email"
                   defaultValue={user?.email}
                   disabled
-                  className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-200 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40 dark:focus:border-blue-300 focus:outline-none focus:ring"
+                  className="block w-full px-4 py-2 mt-2 text-gray-900 bg-gray-200 border border-gray-400 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40 dark:focus:border-blue-300 focus:outline-none focus:ring"
                   required
                 />
               </div>
@@ -77,7 +120,7 @@ const BookingModal = ({ book }) => {
                   placeholder="Book Name"
                   defaultValue={name}
                   disabled
-                  className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-200 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40 dark:focus:border-blue-300 focus:outline-none focus:ring"
+                  className="block w-full px-4 py-2 mt-2 text-gray-900 bg-gray-200 border border-gray-400 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40 dark:focus:border-blue-300 focus:outline-none focus:ring"
                   required
                 />
               </div>
@@ -96,7 +139,7 @@ const BookingModal = ({ book }) => {
                   placeholder="Book Category"
                   defaultValue={category}
                   disabled
-                  className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-200 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40 dark:focus:border-blue-300 focus:outline-none focus:ring"
+                  className="block w-full px-4 py-2 mt-2 text-gray-900 bg-gray-200 border border-gray-400 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40 dark:focus:border-blue-300 focus:outline-none focus:ring"
                   required
                 />
               </div>
@@ -115,7 +158,7 @@ const BookingModal = ({ book }) => {
                   defaultValue={originalPrice}
                   disabled
                   type="text"
-                  className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-200 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40 dark:focus:border-blue-300 focus:outline-none focus:ring"
+                  className="block w-full px-4 py-2 mt-2 text-gray-900 bg-gray-200 border border-gray-400 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40 dark:focus:border-blue-300 focus:outline-none focus:ring"
                   required
                 />
               </div>
@@ -134,7 +177,7 @@ const BookingModal = ({ book }) => {
                   type="text"
                   defaultValue={resalePrice}
                   disabled
-                  className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-200 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40 dark:focus:border-blue-300 focus:outline-none focus:ring"
+                  className="block w-full px-4 py-2 mt-2 text-gray-900 bg-gray-200 border border-gray-400 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40 dark:focus:border-blue-300 focus:outline-none focus:ring"
                   required
                 />
               </div>
@@ -151,7 +194,7 @@ const BookingModal = ({ book }) => {
                   name="location"
                   placeholder="Location"
                   type="text"
-                  className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-200 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40 dark:focus:border-blue-300 focus:outline-none focus:ring"
+                  className="block w-full px-4 py-2 mt-2 text-gray-900 bg-gray-200 border border-gray-400 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40 dark:focus:border-blue-300 focus:outline-none focus:ring"
                   required
                 />
               </div>
@@ -168,7 +211,7 @@ const BookingModal = ({ book }) => {
                   name="phoneNumber"
                   placeholder="Phone Number"
                   type="text"
-                  className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-200 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40 dark:focus:border-blue-300 focus:outline-none focus:ring"
+                  className="block w-full px-4 py-2 mt-2 text-gray-700 bg-gray-200 border border-gray-400 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40 dark:focus:border-blue-300 focus:outline-none focus:ring"
                 />
               </div>
             </div>
