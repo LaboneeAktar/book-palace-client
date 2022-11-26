@@ -1,4 +1,5 @@
 import React from "react";
+import BookingModal from "./BookingModal";
 
 const BookInfo = ({ book }) => {
   console.log(book);
@@ -78,12 +79,16 @@ const BookInfo = ({ book }) => {
             </h2>
           </div>
           <div className="flex space-x-2 dark:text-gray-400">
-            <button className="px-8 py-2.5 leading-5 bg-gradient-to-r from-purple-700 to-rose-500 text-white hover:bg-gradient-to-r hover:from-emerald-700 hover:via-blue-700 hover:to-emerald-700 transition-colors duration-300 transform bg-gray-700 rounded-md hover:bg-gray-600 focus:outline-none focus:bg-gray-600">
+            <label
+              htmlFor="booking-modal"
+              className="px-8 py-2.5 leading-5 bg-gradient-to-r from-purple-700 to-rose-500 text-white hover:bg-gradient-to-r hover:from-emerald-700 hover:via-blue-700 hover:to-emerald-700 transition-colors rounded-md "
+            >
               Buy Now
-            </button>
+            </label>
           </div>
         </div>
       </div>
+      <BookingModal book={book}></BookingModal>
     </div>
   );
 };
