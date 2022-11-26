@@ -32,7 +32,7 @@ const MyOrders = () => {
         return res.json();
       })
       .then((data) => setMyOrders(data));
-  }, [user?.email, logOut]);
+  }, [user?.email, refresh, logOut]);
 
   //delete order
   const handleDelete = (order) => {
