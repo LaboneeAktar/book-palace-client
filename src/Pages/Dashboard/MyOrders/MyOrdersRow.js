@@ -1,6 +1,6 @@
 import React from "react";
 
-const MyOrdersRow = ({ order }) => {
+const MyOrdersRow = ({ order, setDeleteOrder }) => {
   const { bookName, bookImage, category, resalePrice } = order;
   return (
     <div>
@@ -52,13 +52,14 @@ const MyOrdersRow = ({ order }) => {
                   </button>
                 </td>
                 <td className="text-[16px] text-center">
-                  <button
-                    //   onClick={() => handleDelete(_id)}
+                  <label
+                    onClick={() => setDeleteOrder(order)}
+                    htmlFor="confirmation-modal"
                     type="button"
                     className="px-8 py-2.5 leading-5 bg-gradient-to-r from-purple-700 to-rose-500 text-white hover:bg-gradient-to-r hover:from-emerald-700 hover:via-blue-700 hover:to-emerald-700 transition-colors duration-300 transform bg-gray-700 rounded-md hover:bg-gray-600"
                   >
                     Delete
-                  </button>
+                  </label>
                 </td>
               </tr>
             </tbody>
