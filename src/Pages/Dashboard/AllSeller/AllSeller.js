@@ -1,9 +1,18 @@
 import React, { useEffect, useState } from "react";
+import toast from "react-hot-toast";
 import Loader from "../../../Components/Loader/Loader";
+import ConfirmationModal from "../../Shared/ConfirmationModal/ConfirmationModal";
 
 const AllSeller = () => {
   const [allSeller, setAllSeller] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
+
+  const [deleteSeller, setDeleteSeller] = useState(null);
+  const [refresh, setRefresh] = useState(false);
+
+  const closeModal = () => {
+    setDeleteSeller(null);
+  };
 
   //get all users
   useEffect(() => {
@@ -23,7 +32,24 @@ const AllSeller = () => {
         setIsLoading(false);
       })
       .catch((error) => console.error(error));
-  }, []);
+  }, [refresh]);
+
+  //delete seller
+  const handleDelete = (seller) => {
+    fetch(`${process.env.REACT_APP_API_URL}/users/${seller._id}`, {
+      method: "DELETE",
+      headers: {
+        authorization: `bearer ${localStorage.getItem("bookPalace-token")}`,
+      },
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.deletedCount > 0) {
+          toast.success(`Successfully Deleted`);
+          setRefresh(!refresh);
+        }
+      });
+  };
 
   if (isLoading) {
     return <Loader />;
@@ -65,7 +91,7 @@ const AllSeller = () => {
                 </td>
                 <td className="p-3">
                   <label
-                    // onClick={() => setDeleteProduct(product)}
+                    onClick={() => setDeleteSeller(seller)}
                     htmlFor="confirmation-modal"
                     type="button"
                     className="px-8 py-2.5 leading-5 bg-gradient-to-r from-purple-700 to-rose-500 text-white hover:bg-gradient-to-r hover:from-emerald-700 hover:via-blue-700 hover:to-emerald-700 transition-colors duration-300 transform bg-gray-700 rounded-md hover:bg-gray-600"
@@ -88,6 +114,16 @@ const AllSeller = () => {
           </tbody>
         </table>
       </div>
+
+      {deleteSeller && (
+        <ConfirmationModal
+          title={`Are you sure you want to delete "${deleteSeller.name}"?`}
+          message={`If you delete, it cannot get back.`}
+          modalData={deleteSeller}
+          closeModal={closeModal}
+          successAction={handleDelete}
+        ></ConfirmationModal>
+      )}
     </div>
   );
 };
