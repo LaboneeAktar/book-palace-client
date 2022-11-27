@@ -18,7 +18,7 @@ const Sidebar = () => {
     })
       .then((res) => res.json())
       .then((data) => setCheckUser(data));
-  }, [user]);
+  }, [user?.email]);
 
   return (
     <div className="h-full min-h-screen p-3 space-y-2 w-60 bg-gray-300 dark:bg-gray-900 dark:text-gray-100">
