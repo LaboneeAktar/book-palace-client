@@ -1,41 +1,54 @@
 import React from "react";
-import { FaUser } from "react-icons/fa";
-import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import reported from "../../assets/images/reported.png";
+import seller from "../../assets/images/seller.png";
+import buyer from "../../assets/images/buyer.png";
 
 const AdminMenu = () => {
   return (
-    <div>
+    <div className="mt-5">
       <li className="dark:bg-gray-800 dark:text-gray-50">
-        <Link
+        <NavLink
+          to="/dashboard/allseller"
           rel="noopener noreferrer"
-          href="#"
-          className="flex items-center p-2 space-x-3 rounded-md text-[16px]"
+          className={({ isActive }) =>
+            isActive
+              ? "text-rose-800 flex items-center p-2 space-x-3 rounded-md text-lg"
+              : "flex items-center p-2 space-x-3 rounded-md text-lg hover:text-rose-800"
+          }
         >
-          <FaUser></FaUser>
+          <img src={seller} className="h-7 w-7" alt="" />
           <span>All Seller</span>
-        </Link>
+        </NavLink>
       </li>
       <li className="dark:bg-gray-800 dark:text-gray-50">
-        <Link
+        <NavLink
+          to="/dashboard/allbuyer"
           rel="noopener noreferrer"
-          href="#"
-          className="flex items-center p-2 space-x-3 rounded-md text-[16px]"
+          className={({ isActive }) =>
+            isActive
+              ? "text-rose-800 flex items-center p-2 space-x-3 rounded-md text-lg"
+              : "flex items-center p-2 space-x-3 rounded-md text-lg hover:text-rose-800"
+          }
         >
-          <FaUser></FaUser>
+          <img src={buyer} className="h-7 w-7" alt="" />
           <span>All Buyer</span>
-        </Link>
+        </NavLink>
       </li>
 
       <li>
-        <Link
+        <NavLink
+          to="/dashboard/reported"
           rel="noopener noreferrer"
-          href="#"
-          className="flex items-center p-2 space-x-3 rounded-md text-[16px]"
+          className={({ isActive }) =>
+            isActive
+              ? "text-rose-800 flex items-center p-2 space-x-3 rounded-md text-lg"
+              : "flex items-center p-2 space-x-3 rounded-md text-lg hover:text-rose-800"
+          }
         >
           <img src={reported} className="h-7 w-7" alt="" />
           <span>Reported Item</span>
-        </Link>
+        </NavLink>
       </li>
     </div>
   );

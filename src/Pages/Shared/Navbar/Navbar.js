@@ -1,11 +1,14 @@
 import React, { useContext, useState } from "react";
-import { Link, NavLink } from "react-router-dom";
+import toast from "react-hot-toast";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 import logo from "../../../assets/images/logo.png";
 import { AuthContext } from "../../../contexts/AuthProvider";
 
 const Navbar = () => {
   const { user, logOut } = useContext(AuthContext);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+  const navigate = useNavigate();
 
   const leftSideMenuItems = (
     <>
@@ -40,6 +43,13 @@ const Navbar = () => {
     </>
   );
 
+  const handleLogOut = () => {
+    logOut().then(() => {
+      toast.success("Successfully Logged Out");
+      navigate("/");
+    });
+  };
+
   const rightSideMenuItems = (
     <div>
       {user?.uid || user?.email ? (
@@ -61,7 +71,7 @@ const Navbar = () => {
 
           <li>
             <button
-              onClick={logOut}
+              onClick={handleLogOut}
               type="button"
               className="px-4 py-2 text-lg font-normal border rounded text-white hover:bg-sky-900 hover:border-emerald-500 dark:border-gray-100  dark:text-gray-100"
             >
