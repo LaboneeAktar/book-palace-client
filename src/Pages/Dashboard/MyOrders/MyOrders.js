@@ -6,7 +6,7 @@ import ConfirmationModal from "../../Shared/ConfirmationModal/ConfirmationModal"
 import MyOrdersRow from "./MyOrdersRow";
 
 const MyOrders = () => {
-  const { user, logOut } = useContext(AuthContext);
+  const { user, logOut, loading } = useContext(AuthContext);
 
   const [myOrders, setMyOrders] = useState([]);
   const [deleteOrder, setDeleteOrder] = useState(null);
@@ -52,10 +52,16 @@ const MyOrders = () => {
       });
   };
 
+  if (loading) {
+    return <Loader />;
+  }
+
   return (
     <div className="my-5 mx-5">
       {myOrders.length === 0 ? (
-        <Loader />
+        <div className="flex justify-center items-center min-h-screen">
+          <h1 className="text-2xl text-rose-800">You have No Oder</h1>
+        </div>
       ) : (
         <>
           <h1 className="text-2xl">Total Oders : {myOrders.length}</h1>

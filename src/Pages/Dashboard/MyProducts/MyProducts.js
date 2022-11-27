@@ -6,7 +6,7 @@ import ConfirmationModal from "../../Shared/ConfirmationModal/ConfirmationModal"
 import MyProductsRow from "./MyProductsRow";
 
 const MyProducts = () => {
-  const { user, logOut } = useContext(AuthContext);
+  const { user, logOut, loading } = useContext(AuthContext);
 
   const [myProducts, setMyProducts] = useState([]);
   const [deleteProduct, setDeleteProduct] = useState(null);
@@ -49,10 +49,22 @@ const MyProducts = () => {
       });
   };
 
+  if (loading) {
+    return <Loader />;
+  }
+
   return (
     <div className="my-5 mx-5">
       {myProducts.length === 0 ? (
-        <Loader />
+        <>
+          {loading ? (
+            <Loader />
+          ) : (
+            <div className="flex justify-center items-center min-h-screen">
+              <h1 className="text-2xl text-rose-800">You have No Product</h1>
+            </div>
+          )}{" "}
+        </>
       ) : (
         <>
           <h1 className="text-2xl">Total Added Books : {myProducts.length}</h1>

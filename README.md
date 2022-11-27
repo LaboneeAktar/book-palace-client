@@ -30,4 +30,4 @@ Live Website Link: [Book Palace](https://photography-reviewzone.web.app/)
 
 adminEmail: bookpalace@gmail.com
 
-adminPassword: Admin?123
+adminPassword: Admin$123
