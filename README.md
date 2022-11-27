@@ -15,11 +15,18 @@ Live Website Link: [Book Palace](https://photography-reviewzone.web.app/)
 
 ## Resourses & Credits
 
-- React Router : [Link](https://reactrouter.com/en/main)
-- Context API : [Link](https://reactjs.org/docs/context.html)
+- React Router : [React-Router](https://book-palace-99c50.web.app/)
+- Context API : [Context-API](https://reactjs.org/docs/context.html)
 - Design Implementation : [TailWind-CSS](https://tailwindcss.com/docs/installation)
   [Mamba UI](https://www.mambaui.com/components/)
   [kitWind](https://kitwind.io/products/kometa/components)
 - Icon : [React Icon](https://react-icons.github.io/react-icons/)
 - Blog : [Mamba UI](https://www.mambaui.com/components)
 - React Hot Toast : [Toast](https://react-hot-toast.com/)
+- React Hook Form : [React-Hook-Form](https://react-hook-form.com/)
+- React Query : [React-Query](https://tanstack.com/query/v4/docs/overview)
+- Firebase : [Firebase](https://firebase.google.com/..........)
+
+adminEmail: bookpalace@gmail.com
+
+adminPassword: Admin?123

@@ -1,5 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 import toast from "react-hot-toast";
+import Loader from "../../../Components/Loader/Loader";
 import { AuthContext } from "../../../contexts/AuthProvider";
 import ConfirmationModal from "../../Shared/ConfirmationModal/ConfirmationModal";
 import MyOrdersRow from "./MyOrdersRow";
@@ -53,24 +54,30 @@ const MyOrders = () => {
 
   return (
     <div className="my-5 mx-5">
-      <h1 className="text-2xl">Total Oders : {myOrders.length}</h1>
+      {myOrders.length === 0 ? (
+        <Loader />
+      ) : (
+        <>
+          <h1 className="text-2xl">Total Oders : {myOrders.length}</h1>
 
-      {myOrders.map((order) => (
-        <MyOrdersRow
-          key={order._id}
-          order={order}
-          setDeleteOrder={setDeleteOrder}
-        ></MyOrdersRow>
-      ))}
+          {myOrders.map((order) => (
+            <MyOrdersRow
+              key={order._id}
+              order={order}
+              setDeleteOrder={setDeleteOrder}
+            ></MyOrdersRow>
+          ))}
 
-      {deleteOrder && (
-        <ConfirmationModal
-          title={`Are you sure you want to delete "${deleteOrder.bookName}"?`}
-          message={`If you delete, it cannot get back.`}
-          modalData={deleteOrder}
-          closeModal={closeModal}
-          successAction={handleDelete}
-        ></ConfirmationModal>
+          {deleteOrder && (
+            <ConfirmationModal
+              title={`Are you sure you want to delete "${deleteOrder.bookName}"?`}
+              message={`If you delete, it cannot get back.`}
+              modalData={deleteOrder}
+              closeModal={closeModal}
+              successAction={handleDelete}
+            ></ConfirmationModal>
+          )}
+        </>
       )}
     </div>
   );
