@@ -6,7 +6,7 @@ import buyer from "../../assets/images/buyer.png";
 
 const AdminMenu = () => {
   return (
-    <div className="mt-5">
+    <div className="mt-14 lg:mt-5">
       <li className="dark:bg-gray-800 dark:text-gray-50">
         <NavLink
           to="/dashboard/allseller"

@@ -2,6 +2,12 @@ import React from "react";
 
 const MyProductsRow = ({ product, setDeleteProduct }) => {
   const { name, resalePrice } = product;
+
+  const handleAdvertisement = (product) => {
+    console.log(product);
+    console.log("clicked");
+  };
+
   return (
     <div>
       <div className="container p-2 mx-auto sm:p-4 text-gray-200 max-w-6xl">
@@ -36,6 +42,7 @@ const MyProductsRow = ({ product, setDeleteProduct }) => {
                 </td>
                 <td className="p-3 text-[16px] text-center">
                   <button
+                    onClick={() => handleAdvertisement(product)}
                     type="button"
                     className="px-8 py-2.5 leading-5 bg-gradient-to-r from-purple-700 to-rose-500 text-white hover:bg-gradient-to-r hover:from-emerald-700 hover:via-blue-700 hover:to-emerald-700 transition-colors duration-300 transform bg-gray-700 rounded-md hover:bg-gray-600"
                   >

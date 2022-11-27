@@ -4,7 +4,7 @@ import myOrders from "../../assets/images/myorder.png";
 
 const BuyerMenu = () => {
   return (
-    <div className="mt-5">
+    <div className="lg:mt-5 mt-14">
       <li>
         <NavLink
           to="/dashboard/myorders"

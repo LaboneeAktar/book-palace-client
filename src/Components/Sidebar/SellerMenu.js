@@ -5,7 +5,7 @@ import myProduct from "../../assets/images/myproduct.png";
 
 const SellerMenu = () => {
   return (
-    <div>
+    <div className="lg:mt-5 mt-14">
       <li className="dark:bg-gray-800 dark:text-gray-50">
         <NavLink
           to="/dashboard/addproduct"

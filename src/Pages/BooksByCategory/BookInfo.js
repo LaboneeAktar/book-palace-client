@@ -23,7 +23,7 @@ const BookInfo = ({ book }) => {
 
   const [checkUser, setCheckUser] = useState({});
   const [isVerified, setIsVerified] = useState({});
-  console.log(isVerified);
+  // console.log(isVerified);
 
   useEffect(() => {
     fetch(`${process.env.REACT_APP_API_URL}/users/${user?.email}`, {
