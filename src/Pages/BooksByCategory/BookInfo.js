@@ -1,9 +1,12 @@
-import React from "react";
+import React, { useContext, useEffect, useState } from "react";
 import BookingModal from "./BookingModal";
+import { HiOutlineExclamation } from "react-icons/hi";
+import { FaCheckCircle } from "react-icons/fa";
+import toast from "react-hot-toast";
+import { AuthContext } from "../../contexts/AuthProvider";
 
 const BookInfo = ({ book }) => {
-  console.log(book);
-
+  const { user } = useContext(AuthContext);
   const {
     name,
     image,
@@ -18,6 +21,51 @@ const BookInfo = ({ book }) => {
     seller,
   } = book;
 
+  const [checkUser, setCheckUser] = useState({});
+  const [isVerified, setIsVerified] = useState({});
+  console.log(isVerified);
+
+  useEffect(() => {
+    fetch(`${process.env.REACT_APP_API_URL}/users/${user?.email}`, {
+      headers: {
+        authorization: `Bearer ${localStorage.getItem("bookPalace-token")}`,
+      },
+    })
+      .then((res) => res.json())
+      .then((data) => setCheckUser(data));
+  }, [user?.email]);
+
+  useEffect(() => {
+    fetch(
+      `${process.env.REACT_APP_API_URL}/users/seller/verified?email=${seller?.email}`,
+      {
+        headers: {
+          authorization: `Bearer ${localStorage.getItem("bookPalace-token")}`,
+        },
+      }
+    )
+      .then((res) => res.json())
+      .then((data) => setIsVerified(data))
+      .catch((error) => console.error(error));
+  }, [seller?.email]);
+
+  //report a product
+  const handleMakeReport = (id) => {
+    fetch(`${process.env.REACT_APP_API_URL}/books/reported/${id}`, {
+      method: "PUT",
+      headers: {
+        authorization: `bearer ${localStorage.getItem("bookPalace-token")}`,
+      },
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+        if (data.modifiedCount > 0) {
+          toast.success("Rport Send Successfully");
+        }
+      });
+  };
+
   return (
     <div>
       <div className="flex flex-col bg-white max-w-lg p-6 space-y-6 overflow-hidden rounded-lg shadow-md dark:bg-gray-900 dark:text-gray-100 h-full">
@@ -28,8 +76,19 @@ const BookInfo = ({ book }) => {
               src={seller.sellerImg}
               className="object-cover w-12 h-12 rounded-full mt-1 shadow dark:bg-gray-500"
             />
+
             <div className="flex flex-col space-y-1">
-              <h2 className="text-[20px] font-semibold">{seller.sellerName}</h2>
+              <span className="flex items-center">
+                <h2 className="text-[20px] font-semibold">
+                  {seller.sellerName}
+                </h2>
+                {isVerified?.verified && (
+                  <FaCheckCircle className="text-blue-700 text-[16px] ml-2" />
+                )}
+              </span>
+
+              {/* <h2 className="text-[20px] font-semibold">{seller.sellerName}</h2> */}
+
               <span className="text-sm dark:text-gray-400">{seller.email}</span>
             </div>
           </span>
@@ -50,9 +109,22 @@ const BookInfo = ({ book }) => {
             className="w-full mb-4 h-96 dark:bg-gray-500"
           />
           <h2 className="mb-1 text-[22px] text-center font-semibold">{name}</h2>
-          <h2 className="mb-1 text-lg text-center font-semibold">
-            Category: {category}
-          </h2>
+
+          <span className="flex justify-between items-center">
+            <h2 className="mb-1 lg:pt-5 text-lg font-semibold">
+              Category: {category}
+            </h2>
+            {checkUser?.role === "buyer" && (
+              <button onClick={() => handleMakeReport(book._id)}>
+                {" "}
+                <HiOutlineExclamation
+                  className="text-rose-700 text-2xl lg:mt-2"
+                  title="Report to Admin"
+                />
+              </button>
+            )}
+          </span>
+
           <div className="flex justify-between pt-4">
             <p className="text-[15px] dark:text-gray-400">
               <strong>Condition:</strong> {condition}
@@ -79,12 +151,14 @@ const BookInfo = ({ book }) => {
             </h2>
           </div>
           <div className="flex space-x-2 dark:text-gray-400">
-            <label
-              htmlFor="booking-modal"
-              className="px-8 py-2.5 leading-5 bg-gradient-to-r from-purple-700 to-rose-500 text-white hover:bg-gradient-to-r hover:from-emerald-700 hover:via-blue-700 hover:to-emerald-700 transition-colors rounded-md "
-            >
-              Buy Now
-            </label>
+            {checkUser?.role === "buyer" && (
+              <label
+                htmlFor="booking-modal"
+                className="px-8 py-2.5 leading-5 bg-gradient-to-r from-purple-700 to-rose-500 text-white hover:bg-gradient-to-r hover:from-emerald-700 hover:via-blue-700 hover:to-emerald-700 transition-colors rounded-md "
+              >
+                Buy Now
+              </label>
+            )}
           </div>
         </div>
       </div>

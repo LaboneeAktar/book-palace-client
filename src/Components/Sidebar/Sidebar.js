@@ -8,7 +8,7 @@ import SellerMenu from "./SellerMenu";
 const Sidebar = () => {
   const { user } = useContext(AuthContext);
 
-  const [checkUser, setCheckUser] = useState();
+  const [checkUser, setCheckUser] = useState({});
 
   useEffect(() => {
     fetch(`${process.env.REACT_APP_API_URL}/users/${user?.email}`, {

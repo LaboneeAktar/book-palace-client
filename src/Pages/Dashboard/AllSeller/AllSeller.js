@@ -35,8 +35,8 @@ const AllSeller = () => {
   }, [refresh]);
 
   //Make seller verified
-  const handleMakeVerified = (id) => {
-    fetch(`${process.env.REACT_APP_API_URL}/users/verified/${id}`, {
+  const handleMakeVerified = (email) => {
+    fetch(`${process.env.REACT_APP_API_URL}/users/verified/${email}`, {
       method: "PUT",
       headers: {
         authorization: `bearer ${localStorage.getItem("bookPalace-token")}`,
@@ -110,7 +110,7 @@ const AllSeller = () => {
                     </button>
                   ) : (
                     <button
-                      onClick={() => handleMakeVerified(seller._id)}
+                      onClick={() => handleMakeVerified(seller.email)}
                       type="button"
                       className="px-8 py-2.5 leading-5 bg-gradient-to-r from-purple-700 to-rose-500 text-white hover:bg-gradient-to-r hover:from-emerald-700 hover:via-blue-700 hover:to-emerald-700 transition-colors duration-300 transform  rounded-md"
                     >
@@ -128,16 +128,6 @@ const AllSeller = () => {
                     Delete
                   </label>
                 </td>
-                {/* <td>
-                  {booking.price && !booking.paid && (
-                    <Link to={`/dashboard/payment/${booking._id}`}>
-                      <button className="btn btn-primary btn-sm">Pay</button>
-                    </Link>
-                  )}
-                  {booking.price && booking.paid && (
-                    <span className="text-primary">Paid</span>
-                  )}
-                </td> */}
               </tr>
             ))}
           </tbody>
