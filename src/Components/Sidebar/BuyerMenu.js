@@ -1,12 +1,12 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import myOrders from "../../assets/images/myorder.png";
 
 const BuyerMenu = () => {
   return (
     <div className="mt-5">
       <li>
-        <Link
+        <NavLink
           to="/dashboard/myorders"
           rel="noopener noreferrer"
           className={({ isActive }) =>
@@ -17,7 +17,7 @@ const BuyerMenu = () => {
         >
           <img src={myOrders} className="h-7 w-7" alt="" />
           <span>My Orders</span>
-        </Link>
+        </NavLink>
       </li>
     </div>
   );

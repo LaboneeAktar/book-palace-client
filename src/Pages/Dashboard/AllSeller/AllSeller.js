@@ -34,6 +34,24 @@ const AllSeller = () => {
       .catch((error) => console.error(error));
   }, [refresh]);
 
+  //Make seller verified
+  const handleMakeVerified = (id) => {
+    fetch(`${process.env.REACT_APP_API_URL}/users/verified/${id}`, {
+      method: "PUT",
+      headers: {
+        authorization: `bearer ${localStorage.getItem("bookPalace-token")}`,
+      },
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+        if (data.modifiedCount > 0) {
+          toast.success("Make Verified Successful");
+          setRefresh(!refresh);
+        }
+      });
+  };
+
   //delete seller
   const handleDelete = (seller) => {
     fetch(`${process.env.REACT_APP_API_URL}/users/${seller._id}`, {
@@ -82,12 +100,23 @@ const AllSeller = () => {
                 <td className="p-3">{seller.name}</td>
                 <td className="p-3">{seller.email}</td>
                 <td className="p-3">
-                  <button
-                    type="button"
-                    className="px-8 py-2.5 leading-5 bg-gradient-to-r from-purple-700 to-rose-500 text-white hover:bg-gradient-to-r hover:from-emerald-700 hover:via-blue-700 hover:to-emerald-700 transition-colors duration-300 transform bg-gray-700 rounded-md hover:bg-gray-600"
-                  >
-                    Verify
-                  </button>
+                  {seller?.verified === true ? (
+                    <button
+                      type="button"
+                      className="px-8 py-2.5 leading-5 text-white bg-gradient-to-r from-emerald-700 via-blue-700 to-emerald-700 transition-colors duration-300 transform rounded-md"
+                      disabled
+                    >
+                      Verified
+                    </button>
+                  ) : (
+                    <button
+                      onClick={() => handleMakeVerified(seller._id)}
+                      type="button"
+                      className="px-8 py-2.5 leading-5 bg-gradient-to-r from-purple-700 to-rose-500 text-white hover:bg-gradient-to-r hover:from-emerald-700 hover:via-blue-700 hover:to-emerald-700 transition-colors duration-300 transform  rounded-md"
+                    >
+                      Verify
+                    </button>
+                  )}
                 </td>
                 <td className="p-3">
                   <label

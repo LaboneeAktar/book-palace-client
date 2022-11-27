@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import addProduct from "../../assets/images/addproduct.png";
 import myProduct from "../../assets/images/myproduct.png";
 
@@ -7,7 +7,7 @@ const SellerMenu = () => {
   return (
     <div>
       <li className="dark:bg-gray-800 dark:text-gray-50">
-        <Link
+        <NavLink
           to="/dashboard/addproduct"
           rel="noopener noreferrer"
           className={({ isActive }) =>
@@ -18,10 +18,10 @@ const SellerMenu = () => {
         >
           <img src={addProduct} className="h-7 w-7" alt="" />
           <span>Add Product</span>
-        </Link>
+        </NavLink>
       </li>
       <li className="dark:bg-gray-800 dark:text-gray-50">
-        <Link
+        <NavLink
           to="/dashboard/myproduct"
           rel="noopener noreferrer"
           className={({ isActive }) =>
@@ -32,7 +32,7 @@ const SellerMenu = () => {
         >
           <img src={myProduct} className="h-7 w-7" alt="" />
           <span>My Product</span>
-        </Link>
+        </NavLink>
       </li>
     </div>
   );
