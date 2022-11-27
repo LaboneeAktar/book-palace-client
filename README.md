@@ -25,7 +25,8 @@ Live Website Link: [Book Palace](https://photography-reviewzone.web.app/)
 - React Hot Toast : [Toast](https://react-hot-toast.com/)
 - React Hook Form : [React-Hook-Form](https://react-hook-form.com/)
 - React Query : [React-Query](https://tanstack.com/query/v4/docs/overview)
-- Firebase : [Firebase](https://firebase.google.com/..........)
+- Firebase : [Firebase](https://firebase.google.com/)
+- Image Host : [ImageBB](https://imgbb.com/)
 
 adminEmail: bookpalace@gmail.com
 
