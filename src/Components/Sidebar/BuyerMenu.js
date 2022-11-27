@@ -9,7 +9,11 @@ const BuyerMenu = () => {
         <Link
           to="/dashboard/myorders"
           rel="noopener noreferrer"
-          className="flex items-center p-2 space-x-3 rounded-md text-[16px]"
+          className={({ isActive }) =>
+            isActive
+              ? "text-rose-800 flex items-center p-2 space-x-3 rounded-md text-lg"
+              : "flex items-center p-2 space-x-3 rounded-md text-lg hover:text-rose-800"
+          }
         >
           <img src={myOrders} className="h-7 w-7" alt="" />
           <span>My Orders</span>
