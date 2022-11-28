@@ -2,7 +2,7 @@
 
 ## Book Palace
 
-Live Website Link: [Book Palace](https://photography-reviewzone.web.app/)
+Live Website Link: [Book Palace](https://book-palace-99c50.web.app/)
 
 ## Website Features
 
@@ -15,7 +15,7 @@ Live Website Link: [Book Palace](https://photography-reviewzone.web.app/)
 
 ## Resourses & Credits
 
-- React Router : [React-Router](https://book-palace-99c50.web.app/)
+- React Router : [React-Router]
 - Context API : [Context-API](https://reactjs.org/docs/context.html)
 - Design Implementation : [TailWind-CSS](https://tailwindcss.com/docs/installation)
   [Mamba UI](https://www.mambaui.com/components/)
