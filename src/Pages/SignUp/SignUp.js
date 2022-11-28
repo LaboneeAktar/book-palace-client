@@ -5,31 +5,31 @@ import toast from "react-hot-toast";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import SmallLoader from "../../Components/Loader/SmallLoader";
 import { AuthContext } from "../../contexts/AuthProvider";
+import useToken from "../../hooks/useToken";
 // import useToken from "../../hooks/useToken";
 
 const SignUp = () => {
+  const { createUser, updateUser, googleSignIn, loading, setLoading } =
+    useContext(AuthContext);
   const {
     register,
     formState: { errors },
     handleSubmit,
   } = useForm();
-
-  const { createUser, updateUser, googleSignIn, loading, setLoading } =
-    useContext(AuthContext);
   const [signUpError, setsignUpError] = useState("");
 
   const googleProvider = new GoogleAuthProvider();
 
-  //   const [createdUserEmail, setCreatedUserEmail] = useState("");
-  //   const [token] = useToken(createdUserEmail);
-  //   const location = useLocation();
-  //   const navigate = useNavigate();
+  const [createdUserEmail, setCreatedUserEmail] = useState("");
+  const [token] = useToken(createdUserEmail);
+  const location = useLocation();
+  const navigate = useNavigate();
 
-  //   const from = location.state?.from?.pathname || "/";
+  const from = location.state?.from?.pathname || "/";
 
-  //   if (token) {
-  //     navigate(from, { replace: true });
-  //   }
+  if (token) {
+    navigate(from, { replace: true });
+  }
 
   const handleSignUp = (data) => {
     // console.log(data.role);
@@ -61,8 +61,12 @@ const SignUp = () => {
       .then((result) => {
         const user = result.user;
         console.log(user);
+        saveUser(user.displayName, user.email, "buyer");
       })
-      .catch((error) => console.error(error));
+      .catch((error) => {
+        console.error(error);
+        setLoading(false);
+      });
   };
 
   const saveUser = (name, email, role) => {
@@ -81,7 +85,7 @@ const SignUp = () => {
           setLoading(false);
           toast.success("Successfully Created Account");
         }
-        // setCreatedUserEmail(email);
+        setCreatedUserEmail(email);
       });
   };
 

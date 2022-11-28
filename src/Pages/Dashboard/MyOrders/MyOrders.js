@@ -22,7 +22,7 @@ const MyOrders = () => {
       `${process.env.REACT_APP_API_URL}/bookings/mybookings/${user?.email}`,
       {
         headers: {
-          authorization: `Bearer ${localStorage.getItem("bookPalace-token")}`,
+          authorization: `bearer ${localStorage.getItem("bookPalace-token")}`,
         },
       }
     )

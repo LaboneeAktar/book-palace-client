@@ -13,7 +13,7 @@ const Sidebar = () => {
   useEffect(() => {
     fetch(`${process.env.REACT_APP_API_URL}/users/${user?.email}`, {
       headers: {
-        authorization: `Bearer ${localStorage.getItem("bookPalace-token")}`,
+        authorization: `bearer ${localStorage.getItem("bookPalace-token")}`,
       },
     })
       .then((res) => res.json())
@@ -22,7 +22,7 @@ const Sidebar = () => {
 
   return (
     <div>
-      <div className="h-full lg:block hidden min-h-screen p-3 space-y-2 w-60 bg-gray-300 dark:bg-gray-900 dark:text-gray-100">
+      <div className="h-full w-64 lg:block hidden min-h-screen p-3 space-y-2 bg-gray-300 dark:bg-gray-900 dark:text-gray-100">
         <div className="flex items-center p-2 space-x-4">
           <img
             src={user?.photoURL ? user.photoURL : "User"}

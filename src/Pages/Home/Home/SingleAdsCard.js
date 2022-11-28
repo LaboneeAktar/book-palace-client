@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 
 const SingleAdsCard = ({ advertise }) => {
-  console.log(advertise);
+  // console.log(advertise);
   const { name, category, resalePrice, image, message } = advertise;
   return (
     <div>

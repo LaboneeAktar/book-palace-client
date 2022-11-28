@@ -20,7 +20,7 @@ const MyProducts = () => {
   useEffect(() => {
     fetch(`${process.env.REACT_APP_API_URL}/books/mybooks/${user?.email}`, {
       headers: {
-        authorization: `Bearer ${localStorage.getItem("bookPalace-token")}`,
+        authorization: `bearer ${localStorage.getItem("bookPalace-token")}`,
       },
     })
       .then((res) => {

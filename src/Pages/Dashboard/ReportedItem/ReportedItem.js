@@ -18,7 +18,11 @@ const ReportedItem = () => {
 
   useEffect(() => {
     axios
-      .get(`${process.env.REACT_APP_API_URL}/books/reported`)
+      .get(`${process.env.REACT_APP_API_URL}/books/reported`, {
+        headers: {
+          authorization: `bearer ${localStorage.getItem("bookPalace-token")}`,
+        },
+      })
       .then((response) => {
         setReportedBook(response.data);
         setIsLoading(false);

@@ -5,6 +5,7 @@ import toast from "react-hot-toast";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import SmallLoader from "../../Components/Loader/SmallLoader";
 import { AuthContext } from "../../contexts/AuthProvider";
+import useToken from "../../hooks/useToken";
 // import useToken from "../../hooks/useToken";
 
 const Login = () => {
@@ -18,8 +19,8 @@ const Login = () => {
   const { signIn, googleSignIn, resetPassword, loading, setLoading } =
     useContext(AuthContext);
   const [loginError, setLoginError] = useState("");
-  //   const [loginUserEmail, setLoginUserEmail] = useState("");
-  //   const [token] = useToken(loginUserEmail);
+  const [loginUserEmail, setLoginUserEmail] = useState("");
+  const [token] = useToken(loginUserEmail);
 
   const googleProvider = new GoogleAuthProvider();
 
@@ -28,16 +29,19 @@ const Login = () => {
 
   const from = location.state?.from?.pathname || "/";
 
+  if (token) {
+    navigate(from, { replace: true });
+  }
+
   const handleLogin = (data) => {
     setLoginError("");
     signIn(data.email, data.password)
       .then((result) => {
         const user = result.user;
         console.log(user);
-        // setLoginUserEmail(data.email);
+        setLoginUserEmail(data.email);
         setLoading(false);
         toast.success("Login Successful");
-        navigate(from, { replace: true });
       })
       .catch((error) => {
         console.error(error);
@@ -51,8 +55,32 @@ const Login = () => {
       .then((result) => {
         const user = result.user;
         console.log(user);
+        saveUser(user.displayName, user.email, "buyer");
       })
-      .catch((error) => console.error(error));
+      .catch((error) => {
+        console.error(error);
+        setLoading(false);
+      });
+  };
+
+  const saveUser = (name, email, role) => {
+    const user = { name, email, role };
+    fetch(`${process.env.REACT_APP_API_URL}/users`, {
+      method: "POST",
+      headers: {
+        "content-type": "application/json",
+      },
+      body: JSON.stringify(user),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log("Saved User", data);
+        if (data.acknowledged) {
+          setLoading(false);
+          toast.success("Successfully Created Account");
+        }
+        setLoginUserEmail(email);
+      });
   };
 
   const handleResetPassword = () => {

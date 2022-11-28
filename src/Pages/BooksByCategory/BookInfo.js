@@ -28,7 +28,7 @@ const BookInfo = ({ book }) => {
   useEffect(() => {
     fetch(`${process.env.REACT_APP_API_URL}/users/${user?.email}`, {
       headers: {
-        authorization: `Bearer ${localStorage.getItem("bookPalace-token")}`,
+        authorization: `bearer ${localStorage.getItem("bookPalace-token")}`,
       },
     })
       .then((res) => res.json())
@@ -40,7 +40,7 @@ const BookInfo = ({ book }) => {
       `${process.env.REACT_APP_API_URL}/users/seller/verified/${seller?.email}`,
       {
         headers: {
-          authorization: `Bearer ${localStorage.getItem("bookPalace-token")}`,
+          authorization: `bearer ${localStorage.getItem("bookPalace-token")}`,
         },
       }
     )
