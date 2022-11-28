@@ -1,6 +1,7 @@
 import { createBrowserRouter } from "react-router-dom";
 import DashboardLayout from "../../layout/DashboardLayout";
 import Main from "../../layout/Main";
+import Blog from "../../Pages/Blog/Blog";
 import BooksByCategory from "../../Pages/BooksByCategory/BooksByCategory";
 import AddProduct from "../../Pages/Dashboard/AddProduct/AddProduct";
 import AllBuyers from "../../Pages/Dashboard/AllBuyers/AllBuyers";
@@ -40,6 +41,10 @@ const routes = createBrowserRouter([
           fetch(
             `${process.env.REACT_APP_API_URL}/categories/${params.category}`
           ),
+      },
+      {
+        path: "/blog",
+        element: <Blog></Blog>,
       },
       {
         path: "/signup",

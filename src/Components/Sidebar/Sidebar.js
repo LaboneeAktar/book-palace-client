@@ -62,7 +62,7 @@ const Sidebar = () => {
         <div className="drawer-content">
           <label
             htmlFor="dashboard-drawer"
-            className="px-8 py-2.5 leading-5 bg-gradient-to-r from-purple-700 to-rose-500 text-white hover:bg-gradient-to-r hover:from-emerald-700 hover:via-blue-700 hover:to-emerald-700 transition-colors rounded-md"
+            className="px-8 py-2.5 leading-5 bg-gradient-to-r from-purple-700 to-rose-500 text-white hover:bg-gradient-to-r hover:from-emerald-700 hover:via-blue-700 hover:to-emerald-700 transition-colors rounded-md drawer-button"
           >
             Open Dashboard
           </label>

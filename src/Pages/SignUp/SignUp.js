@@ -52,6 +52,7 @@ const SignUp = () => {
       .catch((error) => {
         console.error(error);
         setsignUpError(error.message);
+        setLoading(false);
       });
   };
 

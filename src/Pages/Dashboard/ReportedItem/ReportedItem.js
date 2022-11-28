@@ -55,6 +55,7 @@ const ReportedItem = () => {
             <tr className="text-center text-lg">
               <th className="p-3 font-normal">No.</th>
               <th className="p-3 font-normal">Book Name</th>
+              <th className="p-3 font-normal">Category</th>
               <th className="p-3 font-normal">Action</th>
             </tr>
           </thead>
@@ -67,6 +68,7 @@ const ReportedItem = () => {
                 <th>{idx + 1}</th>
 
                 <td className="p-3">{rbook.name}</td>
+                <td className="p-3">{rbook.category}</td>
 
                 <td className="p-3">
                   <label

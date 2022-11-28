@@ -37,7 +37,7 @@ const BookInfo = ({ book }) => {
 
   useEffect(() => {
     fetch(
-      `${process.env.REACT_APP_API_URL}/users/seller/verified?email=${seller?.email}`,
+      `${process.env.REACT_APP_API_URL}/users/seller/verified/${seller?.email}`,
       {
         headers: {
           authorization: `Bearer ${localStorage.getItem("bookPalace-token")}`,
@@ -61,7 +61,7 @@ const BookInfo = ({ book }) => {
       .then((data) => {
         console.log(data);
         if (data.modifiedCount > 0) {
-          toast.success("Rport Send Successfully");
+          toast.success("Report Send Successfully");
         }
       });
   };
@@ -82,13 +82,10 @@ const BookInfo = ({ book }) => {
                 <h2 className="text-[20px] font-semibold">
                   {seller.sellerName}
                 </h2>
-                {isVerified?.verified && (
+                {isVerified?.verified === true && (
                   <FaCheckCircle className="text-blue-700 text-[16px] ml-2" />
                 )}
               </span>
-
-              {/* <h2 className="text-[20px] font-semibold">{seller.sellerName}</h2> */}
-
               <span className="text-sm dark:text-gray-400">{seller.email}</span>
             </div>
           </span>

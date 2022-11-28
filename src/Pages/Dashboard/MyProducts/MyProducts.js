@@ -49,44 +49,48 @@ const MyProducts = () => {
       });
   };
 
+  const handleAdvertisement = (id) => {
+    fetch(`${process.env.REACT_APP_API_URL}/mybooks/advertised/${id}`, {
+      method: "PUT",
+      headers: {
+        authorization: `bearer ${localStorage.getItem("bookPalace-token")}`,
+      },
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+        if (data.modifiedCount > 0) {
+          toast.success("Successfully Advertised");
+          setRefresh(!refresh);
+        }
+      });
+  };
+
   if (loading) {
     return <Loader />;
   }
 
   return (
     <div className="my-5 mx-5">
-      {myProducts.length === 0 ? (
-        <>
-          {loading ? (
-            <Loader />
-          ) : (
-            <div className="flex justify-center items-center min-h-screen">
-              <h1 className="text-2xl text-rose-800">You have No Product</h1>
-            </div>
-          )}{" "}
-        </>
-      ) : (
-        <>
-          <h1 className="text-2xl">Total Added Books : {myProducts.length}</h1>
+      <h1 className="text-2xl">Total Added Books : {myProducts.length}</h1>
 
-          {myProducts.map((product) => (
-            <MyProductsRow
-              key={product._id}
-              product={product}
-              setDeleteProduct={setDeleteProduct}
-            ></MyProductsRow>
-          ))}
+      {myProducts.map((product) => (
+        <MyProductsRow
+          key={product._id}
+          product={product}
+          handleAdvertisement={handleAdvertisement}
+          setDeleteProduct={setDeleteProduct}
+        ></MyProductsRow>
+      ))}
 
-          {deleteProduct && (
-            <ConfirmationModal
-              title={`Are you sure you want to delete "${deleteProduct.name}"?`}
-              message={`If you delete, it cannot get back.`}
-              modalData={deleteProduct}
-              closeModal={closeModal}
-              successAction={handleDelete}
-            ></ConfirmationModal>
-          )}
-        </>
+      {deleteProduct && (
+        <ConfirmationModal
+          title={`Are you sure you want to delete "${deleteProduct.name}"?`}
+          message={`If you delete, it cannot get back.`}
+          modalData={deleteProduct}
+          closeModal={closeModal}
+          successAction={handleDelete}
+        ></ConfirmationModal>
       )}
     </div>
   );

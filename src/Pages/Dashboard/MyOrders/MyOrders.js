@@ -58,32 +58,24 @@ const MyOrders = () => {
 
   return (
     <div className="my-5 mx-5">
-      {myOrders.length === 0 ? (
-        <div className="flex justify-center items-center min-h-screen">
-          <h1 className="text-2xl text-rose-800">You have No Oder</h1>
-        </div>
-      ) : (
-        <>
-          <h1 className="text-2xl">Total Oders : {myOrders.length}</h1>
+      <h1 className="text-2xl">Total Oders : {myOrders.length}</h1>
 
-          {myOrders.map((order) => (
-            <MyOrdersRow
-              key={order._id}
-              order={order}
-              setDeleteOrder={setDeleteOrder}
-            ></MyOrdersRow>
-          ))}
+      {myOrders.map((order) => (
+        <MyOrdersRow
+          key={order._id}
+          order={order}
+          setDeleteOrder={setDeleteOrder}
+        ></MyOrdersRow>
+      ))}
 
-          {deleteOrder && (
-            <ConfirmationModal
-              title={`Are you sure you want to delete "${deleteOrder.bookName}"?`}
-              message={`If you delete, it cannot get back.`}
-              modalData={deleteOrder}
-              closeModal={closeModal}
-              successAction={handleDelete}
-            ></ConfirmationModal>
-          )}
-        </>
+      {deleteOrder && (
+        <ConfirmationModal
+          title={`Are you sure you want to delete "${deleteOrder.bookName}"?`}
+          message={`If you delete, it cannot get back.`}
+          modalData={deleteOrder}
+          closeModal={closeModal}
+          successAction={handleDelete}
+        ></ConfirmationModal>
       )}
     </div>
   );
