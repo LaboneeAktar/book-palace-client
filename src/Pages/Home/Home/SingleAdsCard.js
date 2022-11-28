@@ -14,12 +14,13 @@ const SingleAdsCard = ({ advertise }) => {
             alt=""
           />
           <div className="absolute inset-0 px-6 py-4 transition-opacity duration-200 bg-black bg-opacity-75 opacity-0 hover:opacity-100">
-            <p className="mb-4 text-2xl text-gray-100">{name}</p>
-            <p className="mb-4 text-lg text-gray-100">
+            <p className="mb-3 text-2xl text-gray-100">{name}</p>
+            <p className="mb-2 text-lg text-gray-100">
               {" "}
               Category:
-              {category} Price : {resalePrice}
+              {category}
             </p>
+            <p className="mb-3 text-lg text-gray-100">Price : {resalePrice}</p>
             <p className="text-sm tracking-wide text-gray-300 mb-6">
               {message?.slice(0, 150)}...
             </p>
