@@ -27,7 +27,3 @@ Live Website Link: [Book Palace](https://book-palace-99c50.web.app/)
 - React Query : [React-Query](https://tanstack.com/query/v4/docs/overview)
 - Firebase : [Firebase](https://firebase.google.com/)
 - Image Host : [ImageBB](https://imgbb.com/)
-
-adminEmail: bookpalace@gmail.com
-
-adminPassword: Admin$123
