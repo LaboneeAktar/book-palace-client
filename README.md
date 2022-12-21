@@ -15,7 +15,7 @@ Live Website Link: [Book Palace](https://book-palace-99c50.web.app/)
 
 ## Resourses & Credits
 
-- React Router : [React-Router]
+- React Router : [React-Router](https://reactrouter.com/en/main)
 - Context API : [Context-API](https://reactjs.org/docs/context.html)
 - Design Implementation : [TailWind-CSS](https://tailwindcss.com/docs/installation)
   [Mamba UI](https://www.mambaui.com/components/)
